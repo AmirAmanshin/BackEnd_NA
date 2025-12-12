@@ -1,0 +1,162 @@
+/* === GLOBAL === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Inter", sans-serif;
+  color: #222;
+  background: #fff;
+  line-height: 1.6;
+  position: relative;
+  padding-top: 85px; /* чтобы контент не прятался под хедером */
+}
+/* ДОПОЛНЕНИЕ: Растягивание страницы */
+.content-box {
+    /* min-height = 100% высоты viewport'а МИНУС высота хедера (85px) и футера (~100px) */
+    min-height: calc(100vh - 85px - 100px);
+    display: flex; /* Для центрирования плейсхолдера */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* ДОПОЛНЕНИЕ: Визуальный плейсхолдер */
+.placeholder-card {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    text-align: center;
+    /* Добавляем тень, как вы просили */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    max-width: 600px;
+    width: 90%;
+    margin: 40px auto;
+    border: 1px solid #eee;
+}
+
+/* === HEADER === */
+.hdr {
+  position: fixed; /* ИСПРАВЛЕНО: 'fixed' вместо 'absolute' для навигации */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-bottom: 1px solid #e5e5e5;
+  z-index: 1000;
+}
+
+.hdr .box, 
+.ftr .box { /* Применен ко всем 'box' */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0;
+}
+
+/* Стиль для кнопки-гамбургера */
+.menu {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav .link {
+  position: relative;
+  color: #333;
+  font-weight: 500;
+  margin-left: 25px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar-nav .link.actv::after,
+.navbar-nav .link:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #007bff;
+  border-radius: 1px;
+  transition: 0.2s;
+}
+
+.navbar-nav .link.actv,
+.navbar-nav .link:hover {
+  color: #007bff;
+}
+/* адаптив */
+@media (max-width: 991px) {
+  .navbar-nav {
+    flex-direction: column;
+    margin-top: 10px;
+    align-items: flex-start;
+  }
+  .navbar-nav .link {
+    margin: 10px 0;
+    width: 100%;
+    display: block;
+  }
+}
+/* === FIX FOR ABSOLUTE HEADER === */
+.top {
+  padding-top: 120px;
+}
+
+/* === ADAPTIVE === */
+@media (max-width: 768px) {
+  .box {
+    padding: 0 15px;
+  }
+  .sec {
+    padding: 50px 0;
+  }
+  .blk,
+  .ask,
+  .card {
+    margin: 10px 0;
+  }
+}
+/* === FOOTER === */
+.ftr {
+  background: #fff;
+  padding: 40px 0;
+  border-top: 1px solid #eee;
+  /* ИСПРАВЛЕНИЕ: Делаем видимым */
+  opacity: 1; 
+  transform: translateY(0); 
+  transition: all 0.4s ease;
+}
+
+/* ДОПОЛНЕНИЕ: Стилизация текста в футере как логотипа */
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #007bff; /* Цвет логотипа */
+  text-decoration: none; /* Убираем подчеркивание, если бы это была ссылка */
+  display: block; /* Чтобы был отдельным блоком */
+}
