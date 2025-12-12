@@ -1,2 +1,5 @@
-# BackEnd_NA
-Back back back back bcak
+- Project Name: Bank Details (illegal)
+- Going to be completed by Nuraly and Amir A.
+- On our site there will be banking details(card number, expiration date, cvv) and details of holder(goverment id, name, date of birth, location). It'll be just a low-quality replica of illegal site. 
+- In the project's directory there is .msi file, that installing node and npm automatically. Run it and follow the instructions.
+- Week 2 → form + POST route, Week 3 → database, etc.
