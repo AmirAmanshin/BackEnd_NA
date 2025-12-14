@@ -7,49 +7,38 @@
 body {
   font-family: "Inter", sans-serif;
   color: #222;
-  background: #fff;
+  background: #f8f8f8; 
   line-height: 1.6;
   position: relative;
-  padding-top: 85px; /* чтобы контент не прятался под хедером */
+  padding-top: 85px; 
 }
-/* ДОПОЛНЕНИЕ: Растягивание страницы */
+
 .content-box {
-    /* min-height = 100% высоты viewport'а МИНУС высота хедера (85px) и футера (~100px) */
-    min-height: calc(100vh - 85px - 100px);
-    display: flex; /* Для центрирования плейсхолдера */
-    align-items: center;
+    padding-top: 40px; 
+    padding-bottom: 40px;
+    display: flex; 
+    align-items: flex-start; 
     justify-content: center;
     width: 100%;
+    min-height: 50vh;
 }
 
-/* ДОПОЛНЕНИЕ: Визуальный плейсхолдер */
-.placeholder-card {
-    background: #ffffff;
-    padding: 50px;
-    border-radius: 15px;
-    text-align: center;
-    /* Добавляем тень, как вы просили */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
-    max-width: 600px;
-    width: 90%;
-    margin: 40px auto;
-    border: 1px solid #eee;
-}
-
-/* === HEADER === */
+/* === HEADER (Светло-серый фон) === */
 .hdr {
-  position: fixed; /* ИСПРАВЛЕНО: 'fixed' вместо 'absolute' для навигации */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #f1f1f1; 
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   border-bottom: 1px solid #e5e5e5;
   z-index: 1000;
 }
 
 .hdr .box, 
-.ftr .box { /* Применен ко всем 'box' */
+.ftr .box,
+.project-info .box,
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 25px;
@@ -69,7 +58,6 @@ body {
   padding: 0.7rem 0;
 }
 
-/* Стиль для кнопки-гамбургера */
 .menu {
     background: none;
     border: none;
@@ -89,7 +77,6 @@ body {
   font-weight: 500;
   margin-left: 25px;
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .navbar-nav .link.actv::after,
@@ -102,14 +89,14 @@ body {
   height: 2px;
   background: #007bff;
   border-radius: 1px;
-  transition: 0.2s;
 }
 
 .navbar-nav .link.actv,
 .navbar-nav .link:hover {
   color: #007bff;
 }
-/* адаптив */
+
+/* === ADAPTIVE HEADER === */
 @media (max-width: 991px) {
   .navbar-nav {
     flex-direction: column;
@@ -122,41 +109,109 @@ body {
     display: block;
   }
 }
-/* === FIX FOR ABSOLUTE HEADER === */
-.top {
-  padding-top: 120px;
+
+/* === FORM CARD (ACCOUNT DETAILS) === */
+.form-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto;
+}
+.form-card .grp {
+    margin-bottom: 15px;
+}
+.form-card label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #444;
 }
 
-/* === ADAPTIVE === */
-@media (max-width: 768px) {
-  .box {
-    padding: 0 15px;
-  }
-  .sec {
-    padding: 50px 0;
-  }
-  .blk,
-  .ask,
-  .card {
-    margin: 10px 0;
-  }
+.form-card h2 {
+    color: #000000; 
 }
-/* === FOOTER === */
+
+.inp,
+.area {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.inp:focus,
+.area:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
+
+.area {
+    height: 90px;
+    resize: none;
+}
+
+.btn.main {
+  background-color: #007bff;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.main:hover {
+  background-color: #0056b3;
+}
+
+/* === FOOTER (Светло-серый фон) === */
 .ftr {
-  background: #fff;
+  background: #f1f1f1; 
   padding: 40px 0;
-  border-top: 1px solid #eee;
-  /* ИСПРАВЛЕНИЕ: Делаем видимым */
-  opacity: 1; 
-  transform: translateY(0); 
-  transition: all 0.4s ease;
+  border-top: 1px solid #ddd;
 }
 
-/* ДОПОЛНЕНИЕ: Стилизация текста в футере как логотипа */
 .logo-text {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #007bff; /* Цвет логотипа */
-  text-decoration: none; /* Убираем подчеркивание, если бы это была ссылка */
-  display: block; /* Чтобы был отдельным блоком */
+  color: #007bff;
+  text-decoration: none; 
+  display: block;
+}
+
+/* === PROJECT INFO BLOCK (Стилизован как карточка) === */
+.project-info {
+    padding: 25px 0 50px;
+}
+
+.project-info .info-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+    max-width: 700px; 
+    width: 90%;
+    margin: 20px auto;
+    text-align: left;
+}
+.project-info h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #222;
+}
+.project-info ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 0.95rem;
+    color: #444;
+}
+.project-info ul li {
+    margin-bottom: 8px;
 }
