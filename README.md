@@ -1,5 +1,8 @@
-- Project Name: Bank Details (illegal)
-- Going to be completed by Nuraly and Amir A.
-- On our site there will be banking details(card number, expiration date, cvv) and details of holder(goverment id, name, date of birth, location). It'll be just a low-quality replica of illegal site. 
-- In the project's directory there is .msi file, that installing node and npm automatically. Run it and follow the instructions.
-- Week 2 → form + POST route, Week 3 → database, etc.
+- Project Name: Bank Details
+- Team: Nuraly and Amir A.
+- Goal: Creation of a low-quality banking interface replica for development study.
+- Content: Focused on general account details, not real confidential data.
+- Next Steps: Week 2 → form + POST route, Week 3 → database, etc.
+- Setup: In the project's directory there is .msi file, that installing node and npm automatically. Run it and follow the instructions.
+
+- To start the project type "node server.js"

@@ -1,0 +1,26 @@
+{
+  "name": "backend_na",
+  "version": "1.0.0",
+  "description": "- Project Name: Bank Details\r - Team: Nuraly and Amir A.\r - Goal: Creation of a low-quality banking interface replica for development study.\r - Content: Focused on general account details, not real confidential data.\r - Next Steps: Week 2 → form + POST route, Week 3 → database, etc.\r - Setup: In the project's directory there is .msi file, that installing node and npm automatically. Run it and follow the instructions.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmirAmanshin/BackEnd_NA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AmirAmanshin/BackEnd_NA/issues"
+  },
+  "homepage": "https://github.com/AmirAmanshin/BackEnd_NA#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "open": "^11.0.0"
+  }
+}
