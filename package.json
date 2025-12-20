@@ -21,6 +21,7 @@
   "homepage": "https://github.com/AmirAmanshin/BackEnd_NA#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "open": "^11.0.0"
+    "open": "^11.0.0",
+    "path": "^0.12.7"
   }
 }
