@@ -7,3 +7,10 @@
 
 
 - To start the project type "node server.js"
+## API
+
+GET /api/items  
+GET /api/items/:id  
+POST /api/items  
+PUT /api/items/:id  
+DELETE /api/items/:id
