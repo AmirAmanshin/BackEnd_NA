@@ -43,21 +43,75 @@ app.get('/contact.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'contact.html'));
 });
 
-// Нуралы, тебе нужно сделать так, чтобы вылезала красивая страничка.
+// // Нуралы, тебе нужно сделать так, чтобы вылезала красивая страничка.
+// app.get('/search', (req, res) => {
+//     const query = req.query.q;
+//     if (!query || query.trim() === "") {
+//         return res.status(400).send(`
+//             <h1>400 Bad Request</h1>
+//             <a href="/index.html">Return Home</a>
+//         `);
+//     }
+//     res.send(`
+//         <link rel="stylesheet" href="/style.css">
+//         <nav class="navbar navbar-expand-lg"><a href="/index.html">Home</a> | <a href="/search">Search</a> | <a href="/contact.html">Contact</a></nav>
+//         <hr>
+//         <h1>Search Results</h1>
+//         <p>You searched for: <strong>${query}</strong></p>
+//     `);
+// });
+
 app.get('/search', (req, res) => {
     const query = req.query.q;
+
     if (!query || query.trim() === "") {
         return res.status(400).send(`
-            <h1>400 Bad Request</h1>
-            <a href="/index.html">Return Home</a>
-        `);
-    }
-    res.send(`
-        <link rel="stylesheet" href="/style.css">
-        <nav class="navbar navbar-expand-lg"><a href="/index.html">Home</a> | <a href="/search">Search</a> | <a href="/contact.html">Contact</a></nav>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Bad Request</title>
+            <link rel="stylesheet" href="/style.css">
+        </head>
+        <body>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+
+        <h1>400 Bad Request</h1>
+        <a href="/">Return Home</a>
+
+        </body>
+        </html>
+                `);
+            }
+
+            res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Search</title>
+            <link rel="stylesheet" href="/style.css">
+        </head>
+        <body>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+
         <hr>
+
         <h1>Search Results</h1>
         <p>You searched for: <strong>${query}</strong></p>
+
+        </body>
+        </html>
     `);
 });
 
