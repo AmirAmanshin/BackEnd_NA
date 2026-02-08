@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const uri = process.env.MONGO_URI;   // ← берём из env
+const uri = process.env.MONGO_URI;
 const dbName = 'bank_data_db';
 
 let client;

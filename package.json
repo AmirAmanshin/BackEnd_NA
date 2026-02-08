@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/AmirAmanshin/BackEnd_NA#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "fs": "^0.0.1-security",
     "mongodb": "^7.0.0",
     "open": "^11.0.0",

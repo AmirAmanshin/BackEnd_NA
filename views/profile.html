@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header class="hdr">
+    <div class="box">
+      <nav class="navbar navbar-expand-lg">
+        <a class="logo" href="index.html">Bank Details</a>
+        <button class="menu btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="link" href="contact.html">Contact</a></li>
+            </ul>
+
+            <form class="search-form d-flex" action="/search" method="GET">
+                <div class="search-group">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        class="search-input" 
+                        placeholder="Search..." 
+                        required>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content-box">
+    <div class="container py-5">
+        <div class="form-card">
+        <h2 class="text-center mb-4">Bank Employee</h2>
+
+        <!-- LOGIN -->
+        <form id="loginForm">
+            <div class="grp">
+            <label for="emp_login">Login</label>
+            <input type="text" id="emp_login" class="inp" placeholder="e.g., employee01">
+            </div>
+
+            <div class="grp">
+            <label for="emp_password">Password</label>
+            <input type="password" id="emp_password" class="inp" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-3">
+            Login
+            </button>
+        </form>
+
+        <hr>
+
+        <!-- PROFILE / SETTINGS (после логина будем показывать через JS) -->
+        <form id="employeeForm" style="display:none;">
+            <h5 class="mb-3">Profile settings</h5>
+
+            <div class="grp">
+            <label for="emp_name">Name</label>
+            <input type="text" id="emp_name" class="inp" placeholder="e.g., Amir A.">
+            </div>
+
+            <div class="grp">
+            <label for="emp_position">Position</label>
+            <input type="text" id="emp_position" class="inp" placeholder="e.g., Bank Manager">
+            </div>
+
+            <div class="grp">
+            <label for="emp_new_login">Login</label>
+            <input type="text" id="emp_new_login" class="inp" placeholder="e.g., employee01">
+            </div>
+
+            <div class="grp">
+            <label for="emp_new_password">New password</label>
+            <input type="password" id="emp_new_password" class="inp" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary w-100 mt-3">
+            Update profile
+            </button>
+
+            <button type="button" id="logoutBtn" class="btn btn-outline-danger w-100 mt-2">
+            Logout
+            </button>
+        </form>
+
+        <div id="authStatus" class="mt-3 text-center"></div>
+        </div>
+    </div>
+    </main>
+
+
+  <footer class="ftr">
+    <div class="box text-center">
+      <p class="copy logo-text">Footer example</p> 
+    </div>
+  </footer>
+
+<script>
+(() => {
+  const loginForm = document.getElementById("loginForm");
+  const employeeForm = document.getElementById("employeeForm");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const authStatus = document.getElementById("authStatus");
+
+  const empLoginEl = document.getElementById("emp_login");
+  const empPasswordEl = document.getElementById("emp_password");
+
+  const empNameEl = document.getElementById("emp_name");
+  const empPositionEl = document.getElementById("emp_position");
+  const empNewLoginEl = document.getElementById("emp_new_login");
+  const empNewPasswordEl = document.getElementById("emp_new_password");
+
+  function setAuthStatus(msg) {
+    authStatus.textContent = msg || "";
+  }
+
+  async function api(path, options = {}) {
+    const res = await fetch(path, {
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin", // важно для cookie-сессии
+      ...options,
+    });
+
+    const text = await res.text();
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+
+    if (!res.ok) {
+      const msg = (data && data.error) ? data.error : (typeof data === "string" ? data : "Request failed");
+      throw new Error(msg);
+    }
+    return data;
+  }
+
+  function showLoggedOut() {
+    loginForm.style.display = "";
+    employeeForm.style.display = "none";
+    empPasswordEl.value = "";
+    setAuthStatus("Not logged in");
+  }
+
+  function showLoggedIn() {
+    loginForm.style.display = "none";
+    employeeForm.style.display = "";
+  }
+
+  async function loadMe() {
+    try {
+      const res = await api("/me");
+      const me = res.data;
+
+      empNameEl.value = me.name ?? "";
+      empPositionEl.value = me.position ?? "";
+      empNewLoginEl.value = me.login ?? "";
+      empNewPasswordEl.value = "";
+
+      showLoggedIn();
+      setAuthStatus(`Logged in as: ${me.login}`);
+    } catch (err) {
+      showLoggedOut();
+    }
+  }
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setAuthStatus("Logging in...");
+
+    const payload = {
+      login: empLoginEl.value.trim(),
+      password: empPasswordEl.value
+    };
+
+    if (!payload.login || !payload.password) {
+      setAuthStatus("Fill login and password");
+      return;
+    }
+
+    try {
+      await api("/login", { method: "POST", body: JSON.stringify(payload) });
+      empPasswordEl.value = "";
+      await loadMe();
+    } catch (err) {
+      setAuthStatus(err.message);
+    }
+  });
+
+  employeeForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setAuthStatus("Saving...");
+
+    const payload = {
+      name: empNameEl.value.trim(),
+      position: empPositionEl.value.trim(),
+      login: empNewLoginEl.value.trim(),
+    };
+
+    const newPass = empNewPasswordEl.value;
+    if (newPass && newPass.trim().length) {
+      payload.new_password = newPass;
+    }
+
+    if (!payload.login) {
+      setAuthStatus("Login cannot be empty");
+      return;
+    }
+
+    try {
+      await api("/me", { method: "PUT", body: JSON.stringify(payload) });
+      empNewPasswordEl.value = "";
+      await loadMe();
+      setAuthStatus("Profile updated");
+    } catch (err) {
+      setAuthStatus(err.message);
+    }
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    setAuthStatus("Logging out...");
+    try {
+      await api("/logout", { method: "POST" });
+    } catch (_) {}
+    showLoggedOut();
+  });
+
+  loadMe();
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
