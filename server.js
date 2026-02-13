@@ -96,6 +96,26 @@ function requireAuth(req, res, next) {
     }
     next();
 }
+// ╬╬╬ Admin checking ╬╬╬
+async function requireAdmin(req, res, next) {
+    try {
+        const db = getDb();
+
+        const employee = await db.collection("employees").findOne(
+        { _id: new ObjectId(req.session.employeeId) },
+        { projection: { position: 1 } }
+        );
+
+        if (!employee) return res.status(401).json({ error: "Unauthorized" });
+
+        const pos = String(employee.position || "").trim().toLowerCase();
+        if (pos !== "admin") return res.status(403).json({ error: "Admin only" });
+
+        next();
+    } catch (err) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
 
 app.post("/login", async (req, res) => {
     const { login, password } = req.body;
@@ -310,7 +330,7 @@ app.put('/api/data/:id', requireAuth, async (req, res) => {
 
 
 // ╬╬╬ DELETE ╬╬╬
-app.delete('/api/data/:id', requireAuth, async (req, res) => {
+app.delete('/api/data/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
         const db = getDb();
         const { id } = req.params;

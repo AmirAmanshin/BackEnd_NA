@@ -66,18 +66,12 @@
 
         <hr>
 
-        <!-- PROFILE / SETTINGS (после логина будем показывать через JS) -->
         <form id="employeeForm" style="display:none;">
             <h5 class="mb-3">Profile settings</h5>
 
             <div class="grp">
             <label for="emp_name">Name</label>
             <input type="text" id="emp_name" class="inp" placeholder="e.g., Amir A.">
-            </div>
-
-            <div class="grp">
-            <label for="emp_position">Position</label>
-            <input type="text" id="emp_position" class="inp" placeholder="e.g., Bank Manager">
             </div>
 
             <div class="grp">
@@ -122,7 +116,6 @@
   const empPasswordEl = document.getElementById("emp_password");
 
   const empNameEl = document.getElementById("emp_name");
-  const empPositionEl = document.getElementById("emp_position");
   const empNewLoginEl = document.getElementById("emp_new_login");
   const empNewPasswordEl = document.getElementById("emp_new_password");
 
@@ -133,7 +126,7 @@
   async function api(path, options = {}) {
     const res = await fetch(path, {
       headers: { "Content-Type": "application/json" },
-      credentials: "same-origin", // важно для cookie-сессии
+      credentials: "same-origin",
       ...options,
     });
 
@@ -166,7 +159,6 @@
       const me = res.data;
 
       empNameEl.value = me.name ?? "";
-      empPositionEl.value = me.position ?? "";
       empNewLoginEl.value = me.login ?? "";
       empNewPasswordEl.value = "";
 
@@ -206,7 +198,6 @@
 
     const payload = {
       name: empNameEl.value.trim(),
-      position: empPositionEl.value.trim(),
       login: empNewLoginEl.value.trim(),
     };
 
